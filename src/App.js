@@ -1,25 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import "./App.css";
+import { Layout } from "antd";
+import SideBar from "./components/SideBar/SideBar";
+import NavBar from "./components/NavBar/NavBar";
+import ToolBar from "./components/ToolBar";
+import ActorBoard from "./components/ActorBoard/ActorBoard";
+import UActorService from "./services/UActorService";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    UActorService.getUActors();
+    const Menu = <ToolBar />;
+    return (
+        <div className="App">
+            <NavBar menu={Menu} />
+            <Layout>
+                <SideBar menu={Menu} />
+                <Layout.Content className="content">
+                    <ActorBoard />
+                </Layout.Content>
+            </Layout>
+        </div>
+    );
 }
+ some change
 
 export default App;

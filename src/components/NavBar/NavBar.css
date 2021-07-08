@@ -1,0 +1,19 @@
+.navbar {
+    background-color: white;
+    padding-left: 2rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+
+.menu {
+  float:left;
+}
+@media (min-width: 992px) {
+    .menu {
+        display: none;
+    }
+}
+.logo {
+    height: 32px;
+    margin-left: 1rem;
+}

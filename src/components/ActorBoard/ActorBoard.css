@@ -1,0 +1,9 @@
+.ActorBoard {
+    display: flex;
+    /*float: left;*/
+}
+
+.ActorCard {
+    margin: 0.1rem;
+    width: 15rem;
+}
