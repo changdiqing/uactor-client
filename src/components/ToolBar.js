@@ -1,13 +1,12 @@
 import React, { useState } from "react";
-import { Menu } from "antd";
-import { Modal, Button } from "antd";
+import { Menu, Modal, Button } from "antd";
+import AddActorForm from "./AddActorForm";
 
 const ToolBar = () => {
     const tools = ["+", "group", "deploy"];
     const [toolsIndex, setToolsIndex] = useState(-1);
 
     const handleClickMenu = (event) => {
-        console.log(event.key);
         setToolsIndex(event.key);
     };
 
@@ -32,11 +31,7 @@ const ToolBar = () => {
             <Menu mode="inline" selectedKeys={[toolsIndex]}>
                 {styledTopics}
             </Menu>
-            <Modal title="Basic Modal 1" visible={toolsIndex == 0} onOk={handleOk} onCancel={handleCancel}>
-                <p>Some contents...</p>
-                <p>Some contents...</p>
-                <p>Some contents...</p>
-            </Modal>
+            <AddActorForm visible={toolsIndex == 0} okDelegation={handleOk} cancelDelegation={handleCancel} />
             <Modal title="Basic Modal 2" visible={toolsIndex == 1} onOk={handleOk} onCancel={handleCancel}>
                 <p>Some contents...</p>
                 <p>Some contents...</p>

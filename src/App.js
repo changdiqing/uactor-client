@@ -5,10 +5,8 @@ import SideBar from "./components/SideBar/SideBar";
 import NavBar from "./components/NavBar/NavBar";
 import ToolBar from "./components/ToolBar";
 import ActorBoard from "./components/ActorBoard/ActorBoard";
-import UActorService from "./services/UActorService";
 
 function App() {
-    UActorService.getUActors();
     const Menu = <ToolBar />;
     return (
         <div className="App">
@@ -22,6 +20,5 @@ function App() {
         </div>
     );
 }
- some change
 
 export default App;

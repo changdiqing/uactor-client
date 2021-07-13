@@ -1,8 +1,10 @@
 import React from "react";
-import { Card, Col, Row } from "antd";
+import { Card } from "antd";
 import "./ActorBoard.css";
 import { connect } from "react-redux";
-import { fetchUActors } from "../../redux/uActorActions";
+import { fetchUActors, removeUActor } from "../../redux/uActorActions";
+import socketClient from "socket.io-client";
+import { CloseOutlined } from "@ant-design/icons";
 
 const mapStateToProps = (state) => ({
     uActorReducer: state.uActorReducer,
@@ -11,6 +13,9 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
     fetchUActors: () => {
         dispatch(fetchUActors());
+    },
+    removeUActor: (pid) => {
+        dispatch(removeUActor(pid));
     },
 });
 
@@ -28,18 +33,31 @@ let testActors = [
 class ActorBoard extends React.Component {
     constructor(props) {
         super(props);
-        props.fetchUActors();
     }
+
+    componentWillMount() {
+        this.props.fetchUActors();
+        this.createUActor();
+    }
+
+    handleCardClose = (actor) => {
+        this.props.removeUActor(actor.pid);
+    };
     render() {
         return (
             <div className="ActorBoard">
                 {this.props.uActorReducer.loading
                     ? "Loading"
                     : this.props.uActorReducer.uActors.map((actor) => (
-                          <Card className="ActorCard" title="Unknown Name" bordered={false}>
+                          <Card
+                              className="ActorCard"
+                              title={actor.name}
+                              bordered={false}
+                              actions={[<CloseOutlined key="close" onClick={() => this.handleCardClose(actor)} />]}
+                          >
                               {actor.pid}
                               <br />
-                              {actor.port}
+                              {actor.ip}
                           </Card>
                       ))}
             </div>

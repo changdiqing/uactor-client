@@ -6,8 +6,6 @@ import path from "path";
 import blake2 from "blake2";
 import luamin from "luamin";
 import { encode } from "@msgpack/msgpack";
-//import { SSL_OP_EPHEMERAL_RSA } from "constants";
-//import { detectLocale } from "yargs";
 
 var INTER_DEPLOYMENT_WAIT_TIME_MS = 5000;
 var MIN_DEPLOYMENT_LIFETIME = 10000;
@@ -39,8 +37,6 @@ function uActorCtl(args) {
         }
         try {
             rawDeployments = yaml.loadAll(fs.readFileSync(configFilePath, "utf8"));
-            console.log("Loaded yaml:");
-            console.log(rawDeployments);
         } catch (err) {
             throw err;
         }
@@ -52,8 +48,6 @@ function uActorCtl(args) {
             } catch (err) {
                 throw err;
             }
-            console.log("parsed deployments");
-            console.log(deployment);
             // A successful parse could still return null?
             if (deployment) {
                 if (deployment["deployment_ttl"] > 0 && deployment["deployment_ttl"] < MIN_DEPLOYMENT_LIFETIME) {
@@ -89,7 +83,7 @@ function uActorCtl(args) {
             // TODO: test this block
             if (args.uploadCodeNodeId) {
                 console.log("Upload Code");
-                publish(socket, coddeMsg(deployment, args.uploadCodeId), epoch, sequence_number);
+                publish(socket, codeMsg(deployment, args.uploadCodeId), epoch, sequence_number);
                 sequence_number++;
             }
 
@@ -150,7 +144,6 @@ function uActorCtl(args) {
     });
 
     socket.on("data", (data) => {
-        console.log(`Received ${data}`);
         socket.destroy();
     });
 }
@@ -270,21 +263,11 @@ function publish(socket, publication, epoch, sequenceNumber) {
     publication["_internal_sequence_number"] = sequenceNumber;
     publication["_internal_epoch"] = epoch;
     const msg = Buffer.from(encode(publication));
-    console.log("##### msg");
-    console.log(msg);
-    //console.log(Buffer.from(msg).toString("hex"));
     // TODO: too many magic numbers!
     let buf = Buffer.allocUnsafe(4);
     buf.writeIntBE(msg.length, 0, 4);
-    console.log("##### buf");
-    console.log(buf);
-    //console.log(Buffer.from(buf).toString("hex"));
     let bufTotal = Buffer.concat([buf, msg]);
-    console.log("##### bufTotal");
-    console.log(Buffer.from(bufTotal));
-    //console.log(Buffer.from(bufTotal).toString("hex"));
     socket.write(bufTotal);
-    console.log(bufTotal.length);
 }
 
 var testArguments = new CtlArguments(
