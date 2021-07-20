@@ -4,7 +4,7 @@
 
 import axios from "axios";
 export default class UActorService {
-    // Create a new uActor
+    // Create a new node
     static createUActor(uactor) {
         return new Promise((resolve, reject) => {
             axios
@@ -20,7 +20,7 @@ export default class UActorService {
                 });
         });
     }
-    // Query all active uActors
+    // Query all active nodes
     static getUActors() {
         return new Promise((resolve, reject) => {
             axios
@@ -45,6 +45,23 @@ export default class UActorService {
                     resolve(resp.data);
                 })
                 .catch((err) => {
+                    reject(err);
+                });
+        });
+    }
+
+    // deploy a new uActor
+    static delpoyUActor(ctlArgument) {
+        return new Promise((resolve, reject) => {
+            axios
+                .get("http://127.0.0.1:8080/deploy", { params: { ctlArgument } })
+                .then((resp) => {
+                    // handle success
+                    resolve(resp.data);
+                })
+                // Catching all the wrong status?
+                .catch((err) => {
+                    // handle error
                     reject(err);
                 });
         });

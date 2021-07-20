@@ -1,9 +1,24 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import { Menu, Modal, Button } from "antd";
 import AddActorForm from "./AddActorForm";
 
 const ToolBar = () => {
-    const tools = ["+", "group", "deploy"];
+    const tools = ["Explorer", "Dashboard", "+", "group", "deploy"];
+    const toolbarMenu = [
+        {
+            name: "Explorer",
+            path: "/",
+        },
+        {
+            name: "Dashboard",
+            path: "/dashboard",
+        },
+        {
+            name: "group",
+            path: "/group",
+        },
+    ];
     const [toolsIndex, setToolsIndex] = useState(-1);
 
     const handleClickMenu = (event) => {
@@ -18,11 +33,11 @@ const ToolBar = () => {
         setToolsIndex(-1);
     };
     const styledTopics = [];
-    tools.forEach((topic, index) =>
+    toolbarMenu.forEach((item, index) =>
         styledTopics.push(
-            <Menu.Item key={index} onClick={handleClickMenu}>
-                {topic}
-            </Menu.Item>
+            <Link to={item.path}>
+                <Menu.Item key={index}>{item.name}</Menu.Item>
+            </Link>
         )
     );
 
@@ -31,17 +46,7 @@ const ToolBar = () => {
             <Menu mode="inline" selectedKeys={[toolsIndex]}>
                 {styledTopics}
             </Menu>
-            <AddActorForm visible={toolsIndex == 0} okDelegation={handleOk} cancelDelegation={handleCancel} />
-            <Modal title="Basic Modal 2" visible={toolsIndex == 1} onOk={handleOk} onCancel={handleCancel}>
-                <p>Some contents...</p>
-                <p>Some contents...</p>
-                <p>Some contents...</p>
-            </Modal>
-            <Modal title="Basic Modal 3" visible={toolsIndex == 2} onOk={handleOk} onCancel={handleCancel}>
-                <p>Some contents...</p>
-                <p>Some contents...</p>
-                <p>Some contents...</p>
-            </Modal>
+            <AddActorForm visible={toolsIndex == 1} okDelegation={handleOk} cancelDelegation={handleCancel} />
         </>
     );
 };

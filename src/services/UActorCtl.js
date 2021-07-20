@@ -74,7 +74,6 @@ function uActorCtl(args) {
     let totalRequiredTime = (INTER_DEPLOYMENT_WAIT_TIME_MS / 1000) * deployments.length;
     let lastIterations = {};
 
-    //with
     let socket = new net.Socket();
     socket.connect(args.port, args.host, () => {
         let before = new Date();
@@ -282,3 +281,5 @@ var testArguments = new CtlArguments(
 );
 
 uActorCtl(testArguments);
+
+export default { uActorCtl };

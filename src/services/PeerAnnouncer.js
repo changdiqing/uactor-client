@@ -50,6 +50,7 @@ function peerAnnouncer(nodes) {
         console.log("end connection");
     });
     console.log("peer anoucement finished");
+    return true;
 }
 
 var peers = [new Node("example_node_1", "127.0.0.1", 5555), new Node("example_node_2", "127.0.0.1", 5556)];

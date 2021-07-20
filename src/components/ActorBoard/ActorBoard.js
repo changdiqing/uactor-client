@@ -37,8 +37,8 @@ class ActorBoard extends React.Component {
 
     componentWillMount() {
         this.props.fetchUActors();
-        this.createUActor();
     }
+
 
     handleCardClose = (actor) => {
         this.props.removeUActor(actor.pid);
