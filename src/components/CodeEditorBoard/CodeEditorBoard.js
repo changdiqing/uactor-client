@@ -1,27 +1,16 @@
 import React from "react";
 import AceEditor from "react-ace";
-import { Layout, Row, Col, Devider, Button, Modal, Form, Input } from "antd";
+import { Layout, Button, Form, Input } from "antd";
 import FileServices from "../../services/FileServices";
 import SubSideBar from "../SubSideBar/SubSideBar";
 import FileTree from "../FileTree/FileTree";
-//import  uActorCtl  from "../../services/UActorCtl";
 import "ace-builds/src-noconflict/mode-python";
 import "ace-builds/src-noconflict/mode-yaml";
 import "ace-builds/src-noconflict/theme-monokai";
-import { CaretRightOutlined } from "@ant-design/icons";
+import {  CaretRightOutlined } from "@ant-design/icons";
 import UActorService from "../../services/UActorService";
 import UActorCtlArgs from "../../models/UActorCtlArgs";
 
-const testArguments = new UActorCtlArgs(
-    "127.0.0.1",
-    "5555",
-    false,
-    null,
-    ["/Users/diqingchang/uActor/examples/tutorial_ping_pong/two_node_deployment.yml"],
-    null,
-    null,
-    null
-);
 class CodeEditorBoard extends React.Component {
     constructor(props) {
         super(props);
@@ -32,7 +21,7 @@ class CodeEditorBoard extends React.Component {
         };
     }
 
-    componentWillMount() {}
+    componentDidMount() {}
 
     handleDeploy = (values) => {
         const args = new UActorCtlArgs(
@@ -130,7 +119,6 @@ class CodeEditorBoard extends React.Component {
                                 <Input id="port" placeholder="port" />
                             </Form.Item>
                         </Form>
-                        <Row></Row>
                         <div>{this.state.respData}</div>
                     </Layout.Content>
                 </Layout>

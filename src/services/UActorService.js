@@ -66,4 +66,23 @@ export default class UActorService {
                 });
         });
     }
+
+    static sendNodeMessage(ip, port, jsonMsg) {
+        console.log(ip);
+        console.log(port);
+        console.log(jsonMsg);
+        return new Promise((resolve, reject) => {
+            axios
+                .post("http://127.0.0.1:8080/message", null, { params: { ip: ip, port: port, message: jsonMsg } })
+                .then((resp) => {
+                    // handle success
+                    resolve(resp.data);
+                })
+                // Catching all the wrong status?
+                .catch((err) => {
+                    // handle error
+                    reject(err);
+                });
+        });
+    }
 }

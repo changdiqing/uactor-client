@@ -1,57 +1,22 @@
-import React, { useState } from "react";
-import { Menu, Modal, Button, Tree } from "antd";
+import React from "react";
+import { Row, Col, Tree, Button, Input } from "antd";
 import FileServices from "../../services/FileServices";
-import { ConsoleSqlOutlined } from "@ant-design/icons";
+import { FolderOpenOutlined } from "@ant-design/icons";
+import { FilePicker } from "react-file-picker";
 import "./FileTree.css";
 
 const { DirectoryTree } = Tree;
-const treeData = [
-    {
-        title: "parent 0",
-        key: "-0",
-        isLeaf: false,
-        children: [
-            {
-                title: "leaf 0-0 adjaiosdjpasodj",
-                key: "0-0-0",
-                isLeaf: true,
-            },
-            {
-                title: "leaf 0-1",
-                key: "1-0-2",
-                isLeaf: true,
-            },
-        ],
-    },
-    {
-        title: "parent 1",
-        key: "-1",
-        isLeaf: true,
-        children: [
-            {
-                title: "leaf 1-0",
-                path: "this is my path",
-                key: "0-1-0",
-                isLeaf: true,
-            },
-            {
-                title: "leaf 1-1",
-                key: "0-1-1",
-                isLeaf: true,
-            },
-        ],
-    },
-];
 
 class FileTree extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            selectedFile: null,
             files: [],
         };
     }
 
-    componentWillMount() {
+    componentDidMount() {
         this.loadFileTree("/Users/diqingchang/uActor/examples/");
     }
 
@@ -76,19 +41,39 @@ class FileTree extends React.Component {
         console.log("Trigger Expand");
     };
 
+    handleFilePickerChange = (event) => {
+        this.setState({
+            selectedFile: event.target.value,
+        });
+    };
+
+    handleOpenDir = () => {
+        console.log(this.state.selectedFile);
+        this.loadFileTree(this.state.selectedFile);
+    };
+
     render() {
         return (
-            <DirectoryTree
-                className="filetree"
-                //multiple
-                //defaultExpandAll
-                showIcon={false}
-                blockNode={false}
-                onSelect={this.onSelect}
-                onExpand={this.onExpand}
-                //treeData={treeData}
-                treeData={this.state.files}
-            />
+            <>
+                <Row>
+                    <Col span={4}>
+                        <Button icon={<FolderOpenOutlined />} onClick={this.handleOpenDir} />
+                    </Col>
+                    <Col span={20}>
+                        <Input onChange={this.handleFilePickerChange} />
+                    </Col>
+                </Row>
+                <DirectoryTree
+                    className="filetree"
+                    //multiple
+                    //defaultExpandAll
+                    showIcon={false}
+                    blockNode={false}
+                    onSelect={this.onSelect}
+                    onExpand={this.onExpand}
+                    treeData={this.state.files}
+                />
+            </>
         );
     }
 }

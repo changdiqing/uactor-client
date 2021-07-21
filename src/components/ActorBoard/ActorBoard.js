@@ -19,26 +19,14 @@ const mapDispatchToProps = (dispatch) => ({
     },
 });
 
-let testActors = [
-    {
-        name: "example_node_1",
-        address: "127.0.0.1:5555",
-    },
-    {
-        name: "example_node_2",
-        address: "127.0.0.1:5556",
-    },
-];
-
 class ActorBoard extends React.Component {
     constructor(props) {
         super(props);
     }
 
-    componentWillMount() {
-        this.props.fetchUActors();
+    componentDidMount() {
+        //this.props.fetchUActors();
     }
-
 
     handleCardClose = (actor) => {
         this.props.removeUActor(actor.pid);
