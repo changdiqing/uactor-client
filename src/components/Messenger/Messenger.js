@@ -5,7 +5,6 @@ import "ace-builds/src-noconflict/mode-json";
 import "ace-builds/src-noconflict/theme-monokai";
 import { CaretRightOutlined } from "@ant-design/icons";
 import UActorService from "../../services/UActorService";
-import SocketClient from "../../services/SocketClient";
 
 const sampleMsg = {
     publisher_node_id: "bootstrap_server",
